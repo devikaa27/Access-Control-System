@@ -25,6 +25,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
         <li><a href="settings.php">⚙️ Settings</a></li>
         <li><a href="manage_users.php">👥 Manage Users</a></li>
         <li><a href="admin_leaves.php">📅 Manage Leave Requests</a></li>
+        <li><a href="admin_breaks.php">🕒 Break Management</a></li>
         <li><a href="logout.php">🔌 Logout</a></li>
     </ul>
 </div>
@@ -42,6 +43,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
         <a href="admin_users.php?action=update">✏️ Update User</a>
         <a href="admin_users.php?action=delete">🗑️ Delete User</a>
         <a href="admin_leaves.php">📋 View Leave Requests</a>
+        <a href="admin_breaks.php">🕒 Break Management</a>
         <a href="admin_late_report.php">View Late Report</a>
     </div>
 </div>
