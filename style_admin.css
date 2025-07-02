@@ -1,0 +1,214 @@
+/* Reset & Body */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f6fa;
+    display: flex;
+    height: 100vh;
+}
+
+.admin-container {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background: linear-gradient(to bottom, #ffffff, #ff3c3c);
+    padding: 20px;
+    height: 100vh;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.3s, color 0.3s;
+}
+
+.sidebar ul li a.active,
+.sidebar ul li a:hover {
+    background: #2c3e50;
+    color: white;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background-color: #ffffff;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+thead {
+    background-color: #f44336;
+    color: white;
+}
+
+th, td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+}
+
+tr:nth-child(even) {
+    background: #fff5f5;
+}
+
+/* Reason Column */
+.reason {
+    max-width: 280px;
+    word-break: break-word;
+    white-space: pre-line;
+    line-height: 1.4;
+    padding: 0;
+    margin: 0;
+}
+
+.readmore-container {
+    max-width: 280px;
+    white-space: normal;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
+
+.readmore-container .short-text,
+.readmore-container .full-text {
+    margin: 0;
+    padding: 0;
+}
+
+.readmore-container .full-text {
+    display: none;
+}
+
+.readmore-container .toggle-btn {
+    margin-top: 6px;
+    font-size: 13px;
+    padding: 5px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    font-weight: 500;
+}
+
+.readmore-container .toggle-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.03);
+}
+
+/* Status Badge */
+.status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
+    text-transform: capitalize;
+}
+
+.status.approved {
+    background: #e1f8e6;
+    color: #28a745;
+}
+
+.status.rejected {
+    background: #fddede;
+    color: #dc3545;
+}
+
+.status.pending {
+    background: #fff3cd;
+    color: #ffc107;
+}
+
+/* Action Buttons */
+.btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+    margin-right: 6px;
+    color: white;
+    transition: 0.3s;
+}
+
+.btn.approve {
+    background-color: #28a745;
+}
+
+.btn.reject {
+    background-color: #dc3545;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    th, td {
+        padding: 8px 10px;
+    }
+}
