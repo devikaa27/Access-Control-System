@@ -45,7 +45,7 @@ $result = $conn->query("SELECT username, email FROM users");
     <link rel="stylesheet" href="style_admin.css">
 </head>
 <body>
-    <h2>Welcome, Admin!</h2>
+    <h2>Manage Users</h2>
     <?php if ($message) echo "<p class='success'>$message</p>"; ?>
 
     

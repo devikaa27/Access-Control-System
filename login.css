@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #ffeaea, #e53935);
+    position: relative;
+}
+
+/* Logo positioning */
+.logo {
+    position: absolute;
+    top: 20px; 
+    left: 20px;
+}
+
+.logo img {
+    width: 150px;
+    height: auto;
+}
+
+/* Login box */
+.Login {
+    width: 420px;
+    background: #ffffff;  
+    color: #000000;
+    border-radius: 20px;
+    padding: 30px 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.Login h1 {
+    font-size: 36px;
+    text-align: center;
+}
+
+.Login .input-box {
+    position: relative;
+    width: 100%;
+    margin: 30px 0;
+}
+
+.input-box input {
+    width: 100%;
+    height: 45px;
+    background: transparent;
+    border: 2px solid rgba(0, 0, 0, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #000000;
+    padding: 0 45px 0 20px;
+}
+
+.input-box input::placeholder {
+    color: #aaa;
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #000;
+}
+
+.Login .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    margin: -15px 0 15px;
+}
+
+.remember-forgot label input {
+    accent-color: #000;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: #000;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.Login .btn {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #000;
+    font-weight: 600;
+}
+
+.Login .register-link {
+    font-size: 15px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.register-link p a {
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}

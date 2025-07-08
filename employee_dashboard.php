@@ -37,7 +37,13 @@ if (empty($att_data['check_out']) && date('H:i') >= '18:00') {
     $att_today = mysqli_query($conn, "SELECT * FROM attendance WHERE user_id = $user_id AND date = '$today'");
     $att_data = mysqli_fetch_assoc($att_today);
 }
+
+// Check if user currently has an active break (break_end is NULL)
+$break_check = mysqli_query($conn, "SELECT * FROM breaks WHERE user_id = $user_id AND break_end IS NULL ORDER BY break_start DESC LIMIT 1");
+$active_break = mysqli_fetch_assoc($break_check);
+$on_break = $active_break ? true : false;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,9 +53,8 @@ if (empty($att_data['check_out']) && date('H:i') >= '18:00') {
     <link rel="stylesheet" href="styledasboard2.css">
 </head>
 <body>
-<div class="dashboard-layout">
     <!-- Sidebar -->
-    <aside class="dashboard-sidebar">
+    <aside class="sidebar">
         <h2>My Dashboard</h2>
         <nav>
             <ul>
@@ -63,10 +68,10 @@ if (empty($att_data['check_out']) && date('H:i') >= '18:00') {
     </aside>
 
     <!-- Main Content -->
-    <main class="dashboard-main">
+    <main class="main">
         <!-- Header -->
-        <div class="dashboard-header-bg">
-            <header class="dashboard-topbar">
+        <div class="header-bg">
+            <header class="topbar">
                 <h1>Welcome back!</h1>
                 <div class="topbar-profile">
                     <img src="images/5987424.png" alt="Profile">
@@ -75,7 +80,7 @@ if (empty($att_data['check_out']) && date('H:i') >= '18:00') {
             </header>
 
             <!-- Stat Cards -->
-            <section class="dashboard-stats">
+            <section class="stats">
                 <div class="stat-card">
                     <div class="icon" style="background-color:#2dce89;">✔️</div>
                     <div class="text">
@@ -113,9 +118,21 @@ if (empty($att_data['check_out']) && date('H:i') >= '18:00') {
         <!-- Break Section -->
         <section class="break-section" style="margin-top: 30px;">
             <h3>🕒 Break Control</h3>
-            <button onclick="startBreak()" style="padding:10px 20px; background:#2dce89; color:white; border:none; border-radius:5px;">Start Break</button>
-            <button onclick="endBreak()" style="padding:10px 20px; background:#f5365c; color:white; border:none; border-radius:5px;">End Break</button>
-            <div id="break-status" style="margin-top:10px; font-weight:bold;"></div>
+            <button id="start-break-btn" 
+                style="padding:10px 20px; background:#2dce89; color:white; border:none; border-radius:5px;" 
+                <?php echo $on_break ? 'disabled' : ''; ?>
+                onclick="startBreak()">Start Break</button>
+
+            <button id="end-break-btn" 
+                style="padding:10px 20px; background:#f5365c; color:white; border:none; border-radius:5px;" 
+                <?php echo $on_break ? '' : 'disabled'; ?>
+                onclick="endBreak()">End Break</button>
+
+            <div id="break-status" style="margin-top:10px; font-weight:bold;">
+                <?php 
+                    echo $on_break ? 'You are currently on a break since ' . date('h:i A', strtotime($active_break['break_start'])) : 'No active break right now.';
+                ?>
+            </div>
         </section>
 
         <!-- Notification Panel -->
@@ -153,13 +170,33 @@ if (empty($att_data['check_out']) && date('H:i') >= '18:00') {
     function startBreak() {
         fetch('break_start.php')
             .then(res => res.text())
-            .then(data => document.getElementById('break-status').innerText = data);
+            .then(data => {
+                document.getElementById('break-status').innerText = data;
+
+                if (data.includes('started')) {
+                    document.getElementById('start-break-btn').disabled = true;
+                    document.getElementById('end-break-btn').disabled = false;
+                }
+            })
+            .catch(() => {
+                document.getElementById('break-status').innerText = 'Error starting break.';
+            });
     }
 
     function endBreak() {
         fetch('break_end.php')
             .then(res => res.text())
-            .then(data => document.getElementById('break-status').innerText = data);
+            .then(data => {
+                document.getElementById('break-status').innerText = data;
+
+                if (data.includes('ended')) {
+                    document.getElementById('start-break-btn').disabled = false;
+                    document.getElementById('end-break-btn').disabled = true;
+                }
+            })
+            .catch(() => {
+                document.getElementById('break-status').innerText = 'Error ending break.';
+            });
     }
 </script>
 </body>
