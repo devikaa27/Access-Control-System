@@ -1,5 +1,7 @@
 <?php
 session_start();
+date_default_timezone_set('Europe/Lisbon');
+
 include 'db.php';
 
 $user_id = $_SESSION['user_id'];

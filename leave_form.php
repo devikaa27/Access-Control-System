@@ -24,11 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($stmt->execute()) {
             $showModal = true;
         } else {
-            echo "<p style='color:red;'>Error: " . $stmt->error . "</p>";
+            echo "<p style='color:red;'>Erro: " . $stmt->error . "</p>";
         }
         $stmt->close();
     } else {
-        echo "<p style='color:red;'>Error in SQL: " . $conn->error . "</p>";
+        echo "<p style='color:red;'>Erro na SQL: " . $conn->error . "</p>";
     }
 
     $conn->close();
@@ -36,50 +36,58 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Leave Request Form</title>
+  <title>Formulário de Pedido de Ausência</title>
   <link rel="stylesheet" href="style_form.css">
 </head>
 <body>
-  <div class="sidebar">
-    <ul>
-      <li><a href="employee_dashboard.php">Home</a></li>
-      <li><a href="profile.html">Profile</a></li>
-      <li><a href="settings.html">Settings</a></li>
-      <li><a href="leave_form.php">Leave Form</a></li>
-      <li><a href="logout.php">Logout</a></li>
-    </ul>
-  </div>
 
-  <div class="main-content">
-    <h2>Leave Request Form</h2>
-    <form method="POST" action="leave_form.php">
-      <label for="start_date">Start Date:</label>
-      <input type="date" id="start_date" name="start_date" required>
+<div class="back-button-container">
+    <a href="employee_dashboard.php" class="back-button">🏠︎</a>
+</div>
 
-      <label for="end_date">End Date:</label>
-      <input type="date" id="end_date" name="end_date" required>
+<div class="main-content">
+  <h2>Pedido de Ausência</h2>
 
-      <label for="reason">Reason:</label>
-      <textarea id="reason" name="reason" required></textarea>
+  <form method="POST" action="leave_form.php">
+    <label for="start_date">Data de Início:</label>
+    <input type="date" id="start_date" name="start_date" required>
 
-      <button type="submit">Request Leave</button>
-    </form>
-  </div>
+    <label for="end_date">Data de Fim:</label>
+    <input type="date" id="end_date" name="end_date" required>
 
-  <?php if ($showModal): ?>
-  <div class="modal">
-    <div class="modal-content">
-      <div class="checkmark-circle">
-        <div class="checkmark"></div>
-      </div>
-      <h3>Submitted Successfully</h3>
-      <p>Your leave request has been sent.</p>
-      <a href="leave_form.php"><button>Done</button></a>
+    <label for="reason">Motivo:</label>
+    <textarea id="reason" name="reason" required></textarea>
+
+    <button type="submit">Pedir Ausência</button>
+  </form>
+</div>
+
+<?php if ($showModal): ?>
+<div class="modal">
+  <div class="modal-content">
+    <div class="checkmark-circle">
+      <div class="checkmark"></div>
     </div>
+    <h3>Pedido de Ausência Submetido com Sucesso</h3>
+    <p>O seu pedido de ausência foi enviado.</p>
+    <a href="leave_form.php"><button>Concluído</button></a>
   </div>
-  <?php endif; ?>
+</div>
+
+<script>
+  setTimeout(() => {
+    const modal = document.querySelector('.modal');
+    if (modal) {
+      modal.style.opacity = '0';
+      modal.style.transition = 'opacity 0.5s ease-out';
+      setTimeout(() => modal.style.display = 'none', 500);
+    }
+  }, 3000); // modal disappears after 3 seconds
+</script>
+<?php endif; ?>
+
 </body>
 </html>

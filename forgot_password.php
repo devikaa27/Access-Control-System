@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Connect to DB
     $conn = new mysqli("127.0.0.1", "root", "", "access_control", 3307);
-    if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+    if ($conn->connect_error) die("Erro de ligação: " . $conn->connect_error);
 
     // Check email exists
     $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
@@ -38,41 +38,106 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'shreyasoni07pt@gmail.com';
-            $mail->Password = 'zscqyzclcnbjbaqb';
+            $mail->Username = 'cruzvermelhaevoro@gmail.com';
+            $mail->Password = 'fonz wyrr qmgw rgnv';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
-            $mail->setFrom('shreyasoni07pt@gmail.com', 'Cruz Vermelha - Access Control');
+            $mail->setFrom('shreyasoni07pt@gmail.com', 'Cruz Vermelha - Controlo de Acesso');
             $mail->addAddress($email);
             $mail->isHTML(true);
-            $mail->Subject = 'Password Reset Request';
-            $mail->Body = "Click to reset your password: <a href='$link'>$link</a>";
+            $mail->Subject = 'Pedido de redefinicao de palavra-passe';
+            $mail->Body = "Clique para redefinir a sua palavra-passe: <a href='$link'>$link</a>";
 
             $mail->send();
-            $msg = "Reset link sent to your email.";
+            $msg = "Link de redefinição enviado para o seu e-mail.";
         } catch (Exception $e) {
-            $msg = "Email sending failed: " . $mail->ErrorInfo;
+            $msg = "Falha ao enviar o e-mail: " . $mail->ErrorInfo;
         }
     } else {
-        $msg = "Email not found.";
+        $msg = "E-mail não encontrado.";
     }
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
-    <title>Forgot Password</title>
-    <link rel="stylesheet" href="reset.css">
+    <meta charset="UTF-8">
+    <title>Recuperar Palavra-Passe</title>
+    <style>
+        body {
+            background: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+        }
+
+        .box {
+            width: 350px;
+            margin: 100px auto;
+            padding: 25px;
+            background: #fff;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #cc0000;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            font-size: 22px;
+            color: #cc0000;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #800000;
+            font-size: 14px;
+        }
+
+        input[type="email"] {
+            display: block;
+            margin: 0 auto 15px auto;
+            width: 80%;
+            padding: 10px;
+            border: 2px solid #cc0000;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #000;
+            background: #fff;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #cc0000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #a00000;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="box">
-        <h2>Forgot Password</h2>
-        <p>Enter your email to get a reset link.</p>
+        <h2>Esqueceu-se da Palavra-Passe</h2>
+        <p>Introduza o seu e-mail para receber um link de redefinição.</p>
         <?php if ($msg): ?><p class="error"><?= $msg ?></p><?php endif; ?>
         <form method="post">
-            <input type="email" name="email" placeholder="Your email" required>
-            <button type="submit">Send Reset Link</button>
+            <input type="email" name="email" placeholder="O seu e-mail" required>
+            <button type="submit">Enviar Link de Redefinição</button>
         </form>
     </div>
 </body>

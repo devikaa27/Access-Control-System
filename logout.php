@@ -1,13 +1,25 @@
-<?php
-session_start(); // Start the session
+ <?php
+session_start();
+date_default_timezone_set('Europe/Lisbon');
 
-// Destroy all session variables
+
+include 'db.php'; // Make sure you include your DB connection here
+
+if (isset($_SESSION['user_id'])) {
+    $userId = $_SESSION['user_id'];
+
+    // Update checkout time for today's attendance where check_out is null
+    $sql = "UPDATE attendance SET check_out = NOW() WHERE user_id = ? AND DATE(check_in) = CURDATE() AND check_out IS NULL";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+}
+
+// Destroy all session variables and session
 session_unset();
-
-// Destroy the session
 session_destroy();
 
-// Redirect to the login page
+// Redirect to login page
 header("Location: login.php");
 exit();
 ?>

@@ -1,0 +1,119 @@
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(90deg, #d2042d, #f58cae);
+    margin: 0;
+    padding: 30px;
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+.back-button-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.back-button {
+    display: inline-block;
+    background-color: white;
+    color: #d2042d;
+    font-size: 24px;
+    border-radius: 50%;
+    text-decoration: none;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #f58cae;
+    color: white;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h2 {
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 28px;
+    color: white;
+    margin-bottom: 30px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.table-container {
+    overflow-x: auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    max-width: 850px;
+    margin: 0 auto;
+    animation: fadeIn 1.4s ease-in-out;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+th {
+    background: linear-gradient(to right, #d2042d, #f58cae);
+    color: white;
+    padding: 14px 12px;
+    text-align: left;
+    font-weight: 600;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr {
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+tr:hover {
+    background-color: #f5f9ff;
+    transform: scale(1.01);
+}
+
+.badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    min-width: 70px;
+    transition: all 0.3s ease;
+}
+
+.badge-on {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.badge-late {
+    background-color: #f8d7da;
+    color: #721c24;
+}

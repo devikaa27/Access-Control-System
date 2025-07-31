@@ -2,36 +2,62 @@
 session_start();
 include 'db.php';
 
+date_default_timezone_set('Europe/Lisbon');
+
 if (!isset($_SESSION['user_id'])) {
     http_response_code(401);
-    echo "Unauthorized";
+    echo "Não autorizado";
     exit();
 }
 
 $user_id = $_SESSION['user_id'];
 
 // Find active break
-$check = mysqli_query($conn, "SELECT * FROM breaks WHERE user_id = $user_id AND break_end IS NULL LIMIT 1");
-if (mysqli_num_rows($check) == 0) {
-    echo "No active break to end.";
+$stmt = $conn->prepare("SELECT id, break_start FROM breaks WHERE user_id = ? AND break_end IS NULL LIMIT 1");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 0) {
+    echo "Não existe nenhuma pausa ativa para terminar.";
     exit();
 }
 
-$break = mysqli_fetch_assoc($check);
+$break = $result->fetch_assoc();
 $break_id = $break['id'];
 $break_start = $break['break_start'];
 $now = date('Y-m-d H:i:s');
 
 $start_time = new DateTime($break_start);
 $end_time = new DateTime($now);
-$duration = $end_time->getTimestamp() - $start_time->getTimestamp(); // in seconds
-$duration_min = round($duration / 60);
+$diff = $start_time->diff($end_time);
 
-// Update break_end and duration
-$sql = "UPDATE breaks SET break_end = '$now', duration = $duration_min WHERE id = $break_id";
-if (mysqli_query($conn, $sql)) {
-    echo "Break ended at " . date('h:i A', strtotime($now)) . ". Duration: $duration_min minutes.";
+// Calculate duration in minutes (for storing in DB)
+$hours = $diff->h + ($diff->d * 24); // Account for multi-day breaks
+$minutes = $diff->i;
+$duration_minutes = ($hours * 60) + $minutes;
+
+// Generate human-readable duration text
+if ($hours > 0 && $minutes > 0) {
+    $duration_text = "$hours hora" . ($hours > 1 ? "s" : "") . " e $minutes minuto" . ($minutes > 1 ? "s" : "");
+} elseif ($hours > 0) {
+    $duration_text = "$hours hora" . ($hours > 1 ? "s" : "");
 } else {
-    echo "Failed to end break.";
+    $duration_text = "$minutes minuto" . ($minutes > 1 ? "s" : "");
 }
+
+$stmt->close();
+
+// Update break record
+$stmt = $conn->prepare("UPDATE breaks SET break_end = ?, duration = ? WHERE id = ?");
+$stmt->bind_param("sii", $now, $duration_minutes, $break_id);
+
+if ($stmt->execute()) {
+    echo "Intervalo terminado às " . date('H:i', strtotime($now)) . ". Duração: $duration_text.";
+} else {
+    error_log("Erro ao terminar intervalo: " . $stmt->error);
+    echo "Erro ao terminar a intervalo. Tente novamente.";
+}
+
+$stmt->close();
 ?>

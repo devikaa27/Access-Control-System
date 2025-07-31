@@ -28,15 +28,18 @@ p {
 }
 
 input[type="password"] {
-    width: 100%;
+    display: block;
+    margin: 0 auto 15px auto; /* Center horizontally and add bottom margin */
+    width: 80%;               /* Slightly smaller width for better centering */
     padding: 10px;
     border: 2px solid #cc0000;
     border-radius: 4px;
-    margin-bottom: 15px;
     font-size: 14px;
     color: #000;
     background: #fff;
+    box-sizing: border-box;
 }
+
 
 button {
     width: 100%;

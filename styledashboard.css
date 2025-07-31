@@ -3,7 +3,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
+    font-size: 16.5px;
+    font-weight: 500;
+    text-transform: none;
 }
 
 body {
@@ -21,7 +24,7 @@ body {
 }
 
 .sidebar h2 {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 600;
     margin-bottom: 35px;
 }
@@ -40,7 +43,7 @@ body {
     text-decoration: none;
     padding: 12px 16px;
     display: block;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 500;
     border-radius: 8px;
     transition: background 0.3s ease, font-size 0.2s;
@@ -49,13 +52,21 @@ body {
 .sidebar ul li a:hover,
 .sidebar ul li a.active {
     background: rgba(255, 255, 255, 0.25);
-    font-size: 15.2px;
+    font-size: 17.2px;
 }
 
-/* MAIN */
+.sidebar ul li a i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    vertical-align: middle;
+}
+
+
+/* MAIN CONTENT */
 .main-content {
     flex: 1;
     padding: 40px;
+    font-size: 16.5px;
 }
 
 /* TOP BAR */
@@ -65,23 +76,39 @@ body {
     padding: 25px 30px;
     border-radius: 12px;
     margin-bottom: 30px;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* CARDS */
+.top-bar h1 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+/* USERNAME inside WELCOME MESSAGE */
+.user-name {
+    font-size: 28px;     /* Matches h1 size */
+    font-weight: 700;
+    color: white;
+}
+
+/* CARD CONTAINER */
 .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
 }
 
+/* CARD STYLE */
 .card {
     background: white;
     padding: 20px;
     border-radius: 14px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 600;
     color: #333;
     text-decoration: none;
@@ -92,4 +119,22 @@ body {
 .card:hover {
     background: #f0f0f0;
     transform: translateY(-4px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px;
+    }
+
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 15px;
+    }
 }

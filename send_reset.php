@@ -17,7 +17,7 @@ $dbname = "access_control";
 
 $conn = new mysqli($host, $user, $password, $dbname, $port);
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Falha na ligação: " . $conn->connect_error);
 }
 
 // Get user email
@@ -25,7 +25,7 @@ $email = $_POST['email'] ?? '';
 
 // Stop if email is empty
 if (empty($email)) {
-    die("Email is required.");
+    die("O email é obrigatório.");
 }
 
 // Generate token and expiry
@@ -53,18 +53,17 @@ try {
     $mail->SMTPSecure = 'tls';
     $mail->Port       = 587;
 
-    $mail->setFrom('shreyasoni07pt@gmail.com', 'Access Control System');
+    $mail->setFrom('shreyasoni07pt@gmail.com', 'Sistema de Controlo de Acesso');
     $mail->addAddress($email);
 
     $mail->isHTML(false);
-    $mail->Subject = 'Reset Your Password - Access Control System';
-    $mail->Body    = "Hello,\n\nClick the link below to reset your password:\n\n$reset_link\n\nThis link will expire in 1 hour.";
+    $mail->Subject = 'Recuperar a sua palavra-passe - Sistema de Controlo de Acesso';
+    $mail->Body    = "Olá,\n\nClique no link abaixo para recuperar a sua palavra-passe:\n\n$reset_link\n\nEste link expirará dentro de 1 hora.";
 
     $mail->send();
 
-    echo "Reset link sent to your email.";
+    echo "Link para recuperar a palavra-passe enviado para o seu email.";
 } catch (Exception $e) {
-    echo "Email could not be sent. Error: {$mail->ErrorInfo}";
+    echo "O email não pôde ser enviado. Erro: {$mail->ErrorInfo}";
 }
 ?>
-    
